@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 # Create your models here.
 
 # читать коммент в файле posts.models здесь для каждой группы будут зранится посты
-Group = get_user_model()
+Group1 = get_user_model()
 
 
 class Group(models.Model):

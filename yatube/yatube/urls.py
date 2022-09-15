@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 import posts
-from posts import views
+from group import views
 
 urlpatterns = [
     # импорт правил из приложения posts,по факту мы получаем список маршрутов из  файлаposts.urls
