@@ -42,4 +42,4 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
 
     # прочитать как это работает
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, related_name="posts", blank=True, null=True)
+    group = models.ForeignKey(Group, on_delete=models.DO_NOTHING, related_name="posts", blank=True, null=True)

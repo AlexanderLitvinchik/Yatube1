@@ -15,14 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-import posts
+from group.models import Group
 from group import views
-
+from posts import views
 urlpatterns = [
     # импорт правил из приложения posts,по факту мы получаем список маршрутов из  файлаposts.urls
     # чтобы не писать кучу маршрутов
     path("", include("posts.urls")),
     # импорт правил из приложения admin,
-    path("admin/", admin.site.urls),
-    path('group/<slug>/',views.group_posts)
+    path("admin/", admin.site.urls)
 ]

@@ -8,7 +8,7 @@ from .models import Group
 
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("pk", "title", "slug", "description")
+    list_display = ( "title", "slug", "description")
     # добавляем интерфейс для поиска по тексту постов
     search_fields = ("title",)
     # добавляем возможность фильтрации по дате

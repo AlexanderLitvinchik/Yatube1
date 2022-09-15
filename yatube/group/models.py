@@ -10,8 +10,7 @@ User = get_user_model()
 class Group(models.Model):
     title = models.CharField(max_length=309)
     # используется для записи url адресов
-    slug = models.SlugField(unique=True)
-
+    slug = models.SlugField(max_length=160, unique=True)
     description = models.TextField(max_length=300)
 
     def __str__(self):
