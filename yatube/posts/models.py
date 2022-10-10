@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from group.models import Group
 
 # В проекте Yatube мы дадим пользователям возможность регистрироваться и создавать свои страницы,
 # и нам нужен инструмент для создания и администрирования аккаунтов. В Django встроена работа с пользователями.
@@ -9,6 +8,16 @@ from group.models import Group
 
 
 User = get_user_model()
+
+
+class Group(models.Model):
+    title = models.CharField(max_length=309)
+    # используется для записи url адресов
+    slug = models.SlugField(max_length=160, unique=True)
+    description = models.TextField(max_length=300)
+
+    def __str__(self):
+        return self.title
 
 
 # Обратите внимание на поле author. Оно ссылается на автора поста, на модель User,
@@ -43,3 +52,7 @@ class Post(models.Model):
 
     # прочитать как это работает
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING, related_name="posts", blank=True, null=True)
+
+
+    def __str__(self):
+        return self.text[:15]

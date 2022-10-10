@@ -26,10 +26,6 @@ SECRET_KEY = 'django-insecure-9qp6*-o51g(oxxp*vb+e)1-cr%34t0=w21isf4h%%^13h+xpj6
 DEBUG = True
 
 
-#  подключаем движок filebased.EmailBackend
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# указываем директорию, в которую будут складываться файлы писем
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 
 ALLOWED_HOSTS = []
@@ -37,7 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 # Добавили приложение posts   в проект
 INSTALLED_APPS = [
-    'group',
     'posts',
     'users',
     'django.contrib.admin',
@@ -141,3 +136,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#  подключаем движок filebased.EmailBackend
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# указываем директорию, в которую будут складываться файлы писем
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
