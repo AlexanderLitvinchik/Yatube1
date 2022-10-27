@@ -5,15 +5,18 @@
     {% for post in posts %}
         {% if post.group.slug != None %}
             <h3>
-                Автор: <a href="/group/{{ post.group.slug }}">{{ post.author.get_full_name|default:post.author.username  }}</a>, Дата публикации: {{ post.pub_date|date:"d M Y" }}
+                Автор: <a href="/group/{{ post.group.slug }}">{{ post.author.get_full_name |default:post.author.username}}</a>, Дата публикации: {{ post.pub_date|date:"d M Y" }}
             </h3>
         {% else %}
             <h3>
-                Автор: {{ post.author.get_full_name|default:post.author.username }}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
+                Автор: {{ post.author.get_full_name |default:post.author.username}}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
             </h3>
         {% endif %}
         <p>{{ post.text|linebreaksbr }}</p>
         {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
 {% endblock %}
+
+
+
 

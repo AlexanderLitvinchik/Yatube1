@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Post
 from .models import Group
-from .forms import PostForm
+from .forms import NewPost
 
 def index(request):
     # одна строка вместо тысячи слов на SQL, берем первые 10 строк взятые отсорченые по дате с конца
@@ -33,10 +33,10 @@ def group_posts(request, slug):
 @login_required
 def post_new(request):
     if request.method != 'POST':
-        form = PostForm()
+        form = NewPost
         return render(request, 'newpost.html', {'form': form})
 
-    form = PostForm(request.POST)
+    form = NewPost(request.POST)
 
     if not form.is_valid():
         return render(request, 'newpost.html', {'form': form})
