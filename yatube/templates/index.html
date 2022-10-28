@@ -2,7 +2,7 @@
 {% block title %}Последние обновления на сайте{% endblock %}
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
-    {% for post in posts %}
+    {% for post in page %}
         {% if post.group.slug != None %}
             <h3>
                 Автор: <a href="/group/{{ post.group.slug }}">{{ post.author.get_full_name |default:post.author.username}}</a>, Дата публикации: {{ post.pub_date|date:"d M Y" }}
@@ -15,6 +15,9 @@
         <p>{{ post.text|linebreaksbr }}</p>
         {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
+{% if page.has_other_pages %}
+         {% include "paginator.html" with items=page paginator=paginator%}
+{% endif %}
 {% endblock %}
 
 

@@ -12,10 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "index"
+SITE_ID = 1
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -25,9 +27,6 @@ SECRET_KEY = 'django-insecure-9qp6*-o51g(oxxp*vb+e)1-cr%34t0=w21isf4h%%^13h+xpj6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -35,6 +34,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'posts',
     'users',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'yatube.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates' ],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,9 +135,7 @@ STATIC_URL = '/static/'
 # задаём адрес директории, куда командой *collectstatic* будет собрана вся статика(картинки ,фото)
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 #  подключаем движок filebased.EmailBackend
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
