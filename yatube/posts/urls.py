@@ -5,5 +5,14 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("new",views.post_new, name="new_post"),
-    path("group/<str:slug>", views.group_posts, name="group")
+    path("group/<str:slug>", views.group_posts, name="group"),
+    # Профайл пользователя
+    path('profile/<str:username>/', views.profile, name='profile'),
+    # Просмотр записи
+    path('<str:username>/<int:post_id>/', views.post_view, name='post'),
+    path(
+        '<str:username>/<int:post_id>/edit/',
+        views.post_edit,
+        name='post_edit'
+    ),
 ]

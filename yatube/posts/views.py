@@ -2,10 +2,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Post
+from .models import Post, User
 from .models import Group
-from .forms import NewPost
+from .forms import NewPost, CommentForm
 from django.core.paginator import Paginator
+
 
 def index(request):
     post_list = Post.objects.order_by('-pub_date').all()
@@ -46,4 +47,59 @@ def post_new(request):
     post = form.save(commit=False)
     post.author = request.user
     post.save()
+    # по сути происходит перенаправление  url: index из urls.py
     return redirect('index')
+
+
+def profile(request, username):
+    author = get_object_or_404(User, username=username)
+    all_posts = Post.objects.all().filter(author__username=username)
+    counter = all_posts.count()
+    paginator = Paginator(all_posts, 5)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return render(request, 'profile.html', {author: "author", counter: "counter", page: "page"})
+
+
+def post_view(request, username, post_id):
+    # тут тело функции
+    author = get_object_or_404(User, username=username)
+    all_posts = Post.objects.all().filter(author__username=username)
+    post = get_object_or_404(Post, id=post_id)
+    counter = all_posts.count()
+    form = CommentForm(request.POST or None)
+    comments = post.comments.all()
+    return render(request, 'post.html',
+                  {'author': author,
+                   'counter': counter, 'form': form, 'comments': comments,
+                   'post': post})
+
+
+@login_required
+def post_edit(request, username, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    author = get_object_or_404(User, username=username)
+    form = NewPost(request.POST or None, files=request.FILES or None,
+                   instance=post)
+
+    # if request.method == 'POST':
+    if request.user != post.author:
+        return redirect('post', username=post.author, post_id=post.id)
+    if form.is_valid():
+        form.save()
+        return redirect('post', username=post.author, post_id=post.id)
+    # form = PostForm(instance=post)
+    return render(request, 'newpost.html',
+                  {'form': form, 'post': post, 'author': author})
+
+
+@login_required
+def add_comment(request, username, post_id):
+    post = get_object_or_404(Post, id=post_id, author__username=username)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.author = request.user
+        comment.save()
+    return redirect('post', username=post.author, post_id=post.id)
