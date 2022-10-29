@@ -1,25 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Последние обновления на сайте{% endblock %}
-{% block header %}Последние обновления на сайте{% endblock %}
+{% block title %} Последние обновления {% endblock %}
+
 {% block content %}
+<div class="container">
+    <h1> Последние обновления на сайте</h1>
+
     {% for post in page %}
-        {% if post.group.slug != None %}
-            <h3>
-                Автор: <a href="/group/{{ post.group.slug }}">{{ post.author.get_full_name |default:post.author.username}}</a>, Дата публикации: {{ post.pub_date|date:"d M Y" }}
-            </h3>
-        {% else %}
-            <h3>
-                Автор: {{ post.author.get_full_name |default:post.author.username}}, Дата публикации: {{ post.pub_date|date:"d M Y" }}
-            </h3>
-        {% endif %}
-        <p>{{ post.text|linebreaksbr }}</p>
-        {% if not forloop.last %}<hr>{% endif %}
+    <!-- Вот он, новый include! -->
+
+    {% include "post_item.html" with post=post %}
+
     {% endfor %}
+</div>
+
+<!-- Вывод паджинатора -->
 {% if page.has_other_pages %}
-         {% include "paginator.html" with items=page paginator=paginator%}
+{% include "paginator.html" with items=page paginator=paginator%}
 {% endif %}
+
 {% endblock %}
-
-
-
-

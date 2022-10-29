@@ -16,7 +16,7 @@ class NewPost(ModelForm):
      """
     class Meta:
         model = Post
-        fields = ('group', 'text')
+        fields = ('group', 'text', 'image')
 
 class CommentForm(ModelForm):
     class Meta:

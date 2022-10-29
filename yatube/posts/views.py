@@ -31,7 +31,7 @@ def group_posts(request, slug):
     # Метод .filter позволяет ограничить поиск по критериям. Это аналог добавления
     # условия WHERE group_id = {group_id}
     posts = Post.objects.filter(group=group).order_by("-pub_date")[:12]
-    return render(request, "group.html", {"group": group, "posts": posts})
+    return render(request, "group.html", {'group': group, 'posts': posts})
 
 
 @login_required
@@ -51,6 +51,7 @@ def post_new(request):
     return redirect('index')
 
 
+
 def profile(request, username):
     author = get_object_or_404(User, username=username)
     all_posts = Post.objects.all().filter(author__username=username)
@@ -58,7 +59,7 @@ def profile(request, username):
     paginator = Paginator(all_posts, 5)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    return render(request, 'profile.html', {author: "author", counter: "counter", page: "page"})
+    return render(request, 'profile.html', {'author': author, 'counter':counter, 'page': page})
 
 
 def post_view(request, username, post_id):
@@ -103,3 +104,18 @@ def add_comment(request, username, post_id):
         comment.author = request.user
         comment.save()
     return redirect('post', username=post.author, post_id=post.id)
+
+
+def page_not_found(request, exception):
+    # Переменная exception содержит отладочную информацию,
+    # выводить её в шаблон пользователской страницы 404 мы не станем
+    return render(
+        request,
+        "misc/404.html",
+        {"path": request.path},
+        status=404
+    )
+
+
+def server_error(request):
+    return render(request, "misc/500.html", status=500)

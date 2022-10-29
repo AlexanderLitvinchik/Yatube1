@@ -38,6 +38,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     # прочитать как это работает
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING, related_name="posts", blank=True, null=True)
+    # поле для картинки
+    # Аргумент upload_to указывает, куда должны загружаться пользовательские файлы.
+    image = models.ImageField(upload_to='posts/', blank=True, null=True)
 
     def __str__(self):
         return self.text[:15]

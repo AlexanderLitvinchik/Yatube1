@@ -15,4 +15,7 @@ urlpatterns = [
         views.post_edit,
         name='post_edit'
     ),
+
+    path('404/', views.page_not_found),
+    path('500', views.server_error)
 ]
