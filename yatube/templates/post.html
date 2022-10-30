@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block title %}Пост #{{ full_post.id }} пользователя {{ full_post.author.first_name }} {{ full_post.author.last_name }}{% endblock %}
-{% block header %}Пост #{{ full_post.id }} пользователя {{ full_post.author.first_name }} {{ full_post.author.last_name }}{% endblock %}
+{% block title %}Пост {{ post.id }} пользователя {{ post.author.first_name }} {{ post.author.last_name }}{% endblock %}
+{% block header %}Пост {{ post.id }} пользователя {{ post.author.first_name }} {{ post.author.last_name }}{% endblock %}
 {% block content %}
 <main role="main" class="container">
     <div class="row">
@@ -10,11 +10,11 @@
                         <div class="card-body">
                                 <div class="h2">
                                     <!-- Имя автора -->
-                                    {{ full_post.author.first_name }} {{ full_post.author.last_name }}
+                                    {{ post.author.first_name }} {{ post.author.last_name }}
                                 </div>
                                 <div class="h3 text-muted">
                                      <!-- username автора -->
-                                     @{{ full_post.author }}
+                                     @{{ post.author }}
                                 </div>
                         </div>
                         <ul class="list-group list-group-flush">
