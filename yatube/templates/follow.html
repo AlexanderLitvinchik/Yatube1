@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% block title %} Последние обновления {% endblock %}
+{% block title %} Подписки пользователя {% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
     <div class="container">
            {% include "include/menu.html" with index=True %}
-           <h1> Последние обновления на сайте</h1>
-
+           <h1> Последние обновления авторов</h1>
 
                     {% for post in page %}
 
@@ -13,11 +12,10 @@
 
                     {% endfor %}
 
+    </div>
 
         {% if page.has_other_pages %}
-
-            {% include "include/paginator.html" %}
-
+            {% include "include/paginator.html" with items=page paginator=paginator%}
         {% endif %}
-    </div>
+
 {% endblock %}
